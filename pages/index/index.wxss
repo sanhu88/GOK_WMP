@@ -1,6 +1,15 @@
 /**index.wxss**/
-.title {
+.temp {
    margin-top: 300rpx;
    text-align: center;
    font-size: 200rpx;
+   line-height: 280rpx;
+   opacity: 0.7;
+}
+.weather {
+   /**margin-top: 300rpx; */
+   text-align: center;
+   font-size: 40rpx;
+   line-height: 56rpx;
+   opacity: 0.5;
 }
