@@ -2,4 +2,5 @@
 .title {
    margin-top: 300rpx;
    text-align: center;
+   font-size: 200rpx;
 }
