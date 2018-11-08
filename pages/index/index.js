@@ -16,6 +16,11 @@ Page({
         let temp = result.now.temp
         let weather = result.now.weather
         console.log(temp,weather)
+        this.setData({
+          nowTemp : temp,
+          nowWeather : weather
+
+        })
         /*console.log(res.data.result.now.temp)
         console.log(res.data.result.now.weather)
         console.log(res.data)
