@@ -1,3 +1,13 @@
+/**常数变量 */
+const weatherMap = {
+  'sunny': '晴天',
+  'cloudy': '多云',
+  'overcast': '阴',
+  'lightrain': '小雨',
+  'heavyrain': '大雨',
+  'snow': '雪'
+}
+
 Page({
   data:{
     nowTemp :14,
@@ -17,8 +27,8 @@ Page({
         let weather = result.now.weather
         console.log(temp,weather)
         this.setData({
-          nowTemp : temp,
-          nowWeather : weather
+          nowTemp : temp+'°c',
+          nowWeather : weatherMap[weather]
 
         })
         /*console.log(res.data.result.now.temp)
