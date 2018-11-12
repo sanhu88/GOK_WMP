@@ -18,12 +18,22 @@ const weatherColorMap = {
 }
 
 Page({
+  
   data:{
     nowTemp :'',
     nowWeather : '',
     nowWeatherBackground:''
   },
   onLoad() {
+    this.getNow()
+  }, 
+  onPullDownRefresh() {
+    this.getNow(() => {
+      wx.stopPullDownRefresh()
+    })
+  },
+  getNow(callback){
+   
     wx.request({
       url: 'https://test-miniprogram.com/api/weather/now', //仅为示例，并非真实的接口地址
       data: {
@@ -49,12 +59,16 @@ Page({
           backgroundColor: weatherColorMap[weather],
 
         })
+       
         /*console.log(res.data.result.now.temp)
         console.log(res.data.result.now.weather)
         console.log(res.data)
         console.log(res.statusCode)
         console.log(res.header)*/
-      }
+      }, /**end success */
+      complete: () => {
+        callback && callback()
+      }   /**end complete */
     })
    }
 
