@@ -23,7 +23,7 @@ Page({
     nowTemp :'',
     nowWeather : '',
     nowWeatherBackground:'',
-    forecast: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    forecast: []
   },
   onLoad() {
     this.getNow()
@@ -47,7 +47,9 @@ Page({
         console.log(result)
         let temp = result.now.temp
         let weather = result.now.weather
-        console.log(temp,weather)
+        /*let forecast = result.forecast*/
+        /**console.log(forecast)*/
+        /*console.log(temp,weather)*/
         this.setData({
           nowTemp : temp+'°c',
           nowWeather : weatherMap[weather],
@@ -61,6 +63,23 @@ Page({
 
         })
        
+        //set forecast
+        let forecast = []
+        let nowHour = new Date().getHours()
+        for (let i = 0; i < 24; i += 3) {
+          forecast.push({
+            time: (i + nowHour) % 24 + "时",
+            iconPath: '/images/sunny-icon.png',
+            temp: "12°"
+          })
+        }
+        forecast[0].time = '现在'
+        this.setData({
+          forecast: forecast
+        })
+
+
+
         /*console.log(res.data.result.now.temp)
         console.log(res.data.result.now.weather)
         console.log(res.data)
