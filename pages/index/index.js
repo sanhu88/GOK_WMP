@@ -67,11 +67,11 @@ Page({
         let forecast = result.forecast;
         let hourlyWeather = [];
         let nowHour = new Date().getHours();
-        for (let i = 0; i < 24; i += 3) {
+        for (let i = 0; i < 8; i += 1) {
           hourlyWeather.push({
-            time: (i + nowHour) % 24 + "时",
-            iconPath: '/images/' + forecast[i / 3].weather+'-icon.png',
-            temp: forecast[i/3].temp+"°",
+            time: (i*3 + nowHour) % 24 + "时",
+            iconPath: '/images/' + forecast[i].weather+'-icon.png',
+            temp: forecast[i].temp+"°",
           })
         }
         hourlyWeather[0].time = '现在'
@@ -86,7 +86,9 @@ Page({
         console.log(res.data)
         console.log(res.statusCode)
         console.log(res.header)*/
-      }, /**end success */
+      }, 
+      /**end success */
+
       complete: () => {
         callback && callback()
       }   /**end complete */
