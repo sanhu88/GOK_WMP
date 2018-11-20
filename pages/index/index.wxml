@@ -1,7 +1,8 @@
 <view class="weather-wrapper" >
-<view class="temp">{{nowTemp}}</view>
-<view class="weather">{{nowWeather}}</view>
-<image class='weather-bg' src='{{nowWeatherBackground}} 'mode='scaleToFill'></image>
+  <view class="temp">{{nowTemp}}</view>
+  <view class="weather">{{nowWeather}}</view>
+  <image class='weather-bg' src='{{nowWeatherBackground}} 'mode='scaleToFill'></image>
+
 <view class='day-weather'>
   <view class='day-text'>{{todayData}}</view>
   <view class='temp-text'>{{todayTemp}}</view>
