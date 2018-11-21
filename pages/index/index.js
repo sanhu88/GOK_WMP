@@ -49,7 +49,7 @@ Page({
         console.log(result);
         this.setNow(result);
         this.setHourlyWeather(result);
-
+        this.setToday(result);
         /*console.log(res.data.result.now.temp)
         console.log(res.data.result.now.weather)
         console.log(res.data)
@@ -99,5 +99,21 @@ Page({
       hourlyWeather: hourlyWeather,
     })
   },
-
+  setToday(result){
+    let date = new Date()
+    let mintemp = result.today.minTemp;
+    let maxtemp = result.today.maxTemp;
+    console.log(maxtemp);
+    console.log(date);
+    this.setData(
+      {
+        todayDate:date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate()+" 今天",
+        todayTemp: mintemp + "°c ~ " + maxtemp +"°c",
+        /*
+         todayTemp: `${result.today.minTemp}° - ${result.today.maxTemp}°`,
+      todayDate: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} 今天`，
+        */
+      }
+    )
+  }
 })
