@@ -1,2 +1,13 @@
 <!--pages/list/list.wxml-->
-<text>Hellow World!</text>
+<!-- <text>Hellow World!</text> -->
+<view class='date-item' wx:for="{{[1,2,3,4,5,6,7]}}" wx:key>
+
+  <view class='data-wrapper'>
+    <view class='day'>周一</view>
+    <view class='date'>2018-12-12</view>
+  </view>
+
+    <view class='temp'>2-7</view>
+
+    <image class='weather-icon'src="/images/sunny-icon.png"></image>
+</view>
