@@ -115,5 +115,8 @@ Page({
         */
       }
     )
-  }
+  },
+  onTapDayWeather() {
+    wx.showToast()
+  },
 })
