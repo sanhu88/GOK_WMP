@@ -24,20 +24,24 @@ Page({
     nowWeather : '',
     nowWeatherBackground:'',
     hourlyWeather: [],
-    todayTemp: "",
-    todayDate: "",
+    todayTemp: '',
+    todayDate: '',
   },
+
   onLoad() {
     this.getNow();
   }, 
+  /**End onLoad */
+
   onPullDownRefresh() {
     this.getNow(() => {
       wx.stopPullDownRefresh();
     })
   },
+  /**End onPullDownRefresh */
+
   getNow(callback){
-   
-    wx.request({
+     wx.request({
       url: 'https://test-miniprogram.com/api/weather/now', //仅为示例，并非真实的接口地址
       data: {
         city: '广州市',
@@ -64,6 +68,8 @@ Page({
       }   /**end complete */
     })
    },
+   /**end of getNow */
+
    setNow(result){
      let temp = result.now.temp;
      let weather = result.now.weather;
@@ -82,6 +88,10 @@ Page({
 
        })
    },
+   /**End setNow */
+
+
+
   setHourlyWeather(result){
     //set forecast
     let forecast = result.forecast;
@@ -98,7 +108,10 @@ Page({
     this.setData({
       hourlyWeather: hourlyWeather,
     })
-  },
+  },/**End setHourlyWeather */
+
+
+
   setToday(result){
     let date = new Date()
     let mintemp = result.today.minTemp;
@@ -116,17 +129,29 @@ Page({
       }
     )
   },
+  /**End setToday */
+
+
+
   onTapDayWeather() {
     wx.navigateTo({
       url: '/pages/list/list'
     });
   },
+  /**End onTapDayWeather */
+
 
   onTapLocation() {
     wx.getLocation({
+     /* type: 'wgs84',*/
       success: res => {
-        console.log(res.latitude, res.longitude)
+        console.log(res.latitude, res.longitude, res.speed, res.accuracy)
       },
     });
-  }
+  },
+  /**End onTapLocation */
+
+
+
+
 })
