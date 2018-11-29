@@ -32,7 +32,7 @@ Page({
 
   onLoad() {
     this.qqmapsdk = new QQMapWX({
-      key: 'EAXBZ-33R3X-AA64F-7FIPQ-BY27J-5UF5B'
+      key: 'WTNBZ-P2EKV-KB3PP-UNL24-UBCT3-RJFDO'
     })
     this.getNow();
   }, 
