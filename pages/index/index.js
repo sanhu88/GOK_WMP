@@ -19,6 +19,13 @@ const weatherColorMap = {
 
 const QQMapWX = require('../../libs/qqmap-wx-jssdk.js');
 
+const UNPROMPTED = 0
+const UNAUTHORIZED = 1
+const AUTHORIZED = 2
+const UNPROMPTED_TIPS = "点击获取当前位置"
+const UNAUTHORIZED_TIPS = "点击开启位置权限"
+const AUTHORIZED_TIPS = ""
+
 Page({
   
   data:{
@@ -29,7 +36,8 @@ Page({
     todayTemp: '',
     todayDate: '',
     city: '北京市',
-    locationTipsText: '点击定位获取当前位置',
+    locationTipsText: UNPROMPTED_TIPS,
+    locationAuthType: UNPROMPTED,
   },
 
   onLoad() {
@@ -150,9 +158,19 @@ Page({
 
 
   onTapLocation() {
+    this.getLocation()
+  },
+   /**End onTapLocation */
+  getLocation() {
     wx.getLocation({
      /* type: 'wgs84',*/
       success: res => {
+        this.setData({
+          locationAuthType: AUTHORIZED,
+          locationTipsText: AUTHORIZED_TIPS
+        });
+
+
         this.qqmapsdk.reverseGeocoder({
           location: {
             latitude: res.latitude,
@@ -164,17 +182,30 @@ Page({
             this.setData(
               {
                 city : city,
-                locationTipsText:'',
+                
         
               }
             );
             this.getNow();
-          }
-        })
+
+            fail: () => {
+              this.setData({
+                locationAuthType: UNAUTHORIZED,
+                locationTipsText: UNAUTHORIZED_TIPS
+              })
+            };
+
+          },
+
+        });
+        /**End qqmapsdk.reverseGeocoder */
+
+
       },
     });
+
   },
-  /**End onTapLocation */
+  /**End getLocation */
 
 
 
