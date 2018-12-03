@@ -28,6 +28,8 @@ Page({
     hourlyWeather: [],
     todayTemp: '',
     todayDate: '',
+    city: '北京市',
+    locationTipsText: '点击定位获取当前位置',
   },
 
   onLoad() {
@@ -49,7 +51,8 @@ Page({
      wx.request({
       url: 'https://test-miniprogram.com/api/weather/now', //仅为示例，并非真实的接口地址
       data: {
-        city: '广州市',
+        /*city: '广州市',*/
+        city:this.data.city,
       },
       
       /*success(res) {*/
@@ -157,7 +160,15 @@ Page({
           },
           success: res => {
             let city = res.result.address_component.city
-            console.log(city)
+            console.log(city) /**/
+            this.setData(
+              {
+                city : city,
+                locationTipsText:'',
+        
+              }
+            );
+            this.getNow();
           }
         })
       },
