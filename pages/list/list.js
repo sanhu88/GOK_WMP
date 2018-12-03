@@ -7,9 +7,14 @@ Page({
     nowWeather: '',
     nowWeatherBackground: '',
     weekWeather:[1,2,3,4,5,6,7],
+    city:'北京市',
    
   },
-  onLoad() {
+  onLoad(options) {
+    console.log(options.city);
+    this.setData({
+      city: options.city,
+    })
     this.getWeekWeather();
   },
   onPullDownRefresh() {
@@ -22,7 +27,9 @@ Page({
     wx.request({
       url: 'https://test-miniprogram.com/api/weather/future', //仅为示例，并非真实的接口地址
       data: {
-        city: '广州市',
+        /*city: '广州市',*/
+        city:this.data.city,
+        
         time:new Date().getTime(),
       },
 
