@@ -48,24 +48,6 @@ Page({
   }, 
   /**End onLoad */
 
-
-  onShow() {
-    wx.getSetting({
-      success: res => {
-        let auth = res.authSetting['scope.userLocation'];
-        if (auth && this.data.locationAuthType != AUTHORIZED) {
-          //权限从无到有
-          this.setData({
-            locationAuthType: AUTHORIZED,
-            locationTipsText: AUTHORIZED_TIPS,
-          })
-          this.getLocation();
-        }
-        //权限从有到无未处理
-      }
-    })
-  },
-  /**End  onShow*/
   onPullDownRefresh() {
     this.getNow(() => {
       wx.stopPullDownRefresh();
@@ -78,7 +60,7 @@ Page({
       url: 'https://test-miniprogram.com/api/weather/now', //仅为示例，并非真实的接口地址
       data: {
         /*city: '广州市',*/
-        city:this.data.city,
+        city : this.data.city,
       },
       
       /*success(res) {*/
@@ -176,24 +158,17 @@ Page({
 
 
   onTapLocation() {
-    if (this.data.locationAuthType === UNAUTHORIZED)
-      wx.openSetting();
-    else
-      this.getLocation();
+   this.getCityAndWeather()
   },
   
    /**End onTapLocation */
-  getLocation() {
+  getCityAndWeather() {
     wx.getLocation({
-      
-     /* type: 'wgs84',*/
       success: res => {
         this.setData({
           locationAuthType: AUTHORIZED,
-          locationTipsText: AUTHORIZED_TIPS,
-        });
-
-
+          locationTipsText: AUTHORIZED_TIPS
+        })
         this.qqmapsdk.reverseGeocoder({
           location: {
             latitude: res.latitude,
@@ -201,36 +176,19 @@ Page({
           },
           success: res => {
             let city = res.result.address_component.city
-            console.log(city); /**/
-            this.setData(
-              {
-                city : city,
-                
-        
-              }
-            );
-            this.getNow();
-
-            fail: () => {
-              this.setData({
-                locationAuthType: UNAUTHORIZED,
-                locationTipsText: UNAUTHORIZED_TIPS,
-              })
-            };
-
-          },
-
-        });
-        /**End qqmapsdk.reverseGeocoder */
-
-
+            this.setData({
+              city: city,
+            })
+            this.getNow()
+          }
+        })
       },
-    });
-
-  },
-  /**End getLocation */
-
-
-
-
+      fail: () => {
+        this.setData({
+          locationAuthType: UNAUTHORIZED,
+          locationTipsText: UNAUTHORIZED_TIPS
+        })
+      }
+    })
+  }
 })
