@@ -44,7 +44,26 @@ Page({
     this.qqmapsdk = new QQMapWX({
       key: 'WTNBZ-P2EKV-KB3PP-UNL24-UBCT3-RJFDO'
     })
-    this.getNow();
+    wx.getSetting({
+      success: res => {
+        let auth = res.authSetting['scope.userLocation']
+        let locationAuthType = auth ? AUTHORIZED
+          : (auth === false) ? UNAUTHORIZED : UNPROMPTED
+        let locationTipsText = auth ? AUTHORIZED_TIPS
+          : (auth === false) ? UNAUTHORIZED_TIPS : UNPROMPTED_TIPS
+        this.setData({
+          locationAuthType: locationAuthType,
+          locationTipsText: locationTipsText
+        })
+        if (auth)
+          this.getCityAndWeather()
+        else
+          this.getNow() //使用默认城市
+      },
+      fail: () => {
+        this.getNow() //使用默认城市
+      }
+    })
   }, 
   /**End onLoad */
 
