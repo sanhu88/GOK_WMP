@@ -48,6 +48,24 @@ Page({
   }, 
   /**End onLoad */
 
+
+  onShow() {
+    wx.getSetting({
+      success: res => {
+        let auth = res.authSetting['scope.userLocation'];
+        if (auth && this.data.locationAuthType != AUTHORIZED) {
+          //权限从无到有
+          this.setData({
+            locationAuthType: AUTHORIZED,
+            locationTipsText: AUTHORIZED_TIPS,
+          })
+          this.getLocation();
+        }
+        //权限从有到无未处理
+      }
+    })
+  },
+  /**End  onShow*/
   onPullDownRefresh() {
     this.getNow(() => {
       wx.stopPullDownRefresh();
@@ -158,16 +176,21 @@ Page({
 
 
   onTapLocation() {
-    this.getLocation()
+    if (this.data.locationAuthType === UNAUTHORIZED)
+      wx.openSetting();
+    else
+      this.getLocation();
   },
+  
    /**End onTapLocation */
   getLocation() {
     wx.getLocation({
+      
      /* type: 'wgs84',*/
       success: res => {
         this.setData({
           locationAuthType: AUTHORIZED,
-          locationTipsText: AUTHORIZED_TIPS
+          locationTipsText: AUTHORIZED_TIPS,
         });
 
 
@@ -178,7 +201,7 @@ Page({
           },
           success: res => {
             let city = res.result.address_component.city
-            console.log(city) /**/
+            console.log(city); /**/
             this.setData(
               {
                 city : city,
@@ -191,7 +214,7 @@ Page({
             fail: () => {
               this.setData({
                 locationAuthType: UNAUTHORIZED,
-                locationTipsText: UNAUTHORIZED_TIPS
+                locationTipsText: UNAUTHORIZED_TIPS,
               })
             };
 
