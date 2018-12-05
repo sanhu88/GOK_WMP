@@ -11,7 +11,7 @@ Page({
    
   },
   onLoad(options) {
-    console.log(options.city);
+   /* console.log(options.city);*/
     this.setData({
       city: options.city,
     })
@@ -38,7 +38,7 @@ Page({
         let result = res.data.result;
         this.setWeekWeather(result);
 
-        console.log(result);
+        /*console.log(result);*/
         /*console.log(forecastweekweather);*/
         /*this.setNow(result);*/
         

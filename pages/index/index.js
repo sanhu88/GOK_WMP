@@ -46,7 +46,7 @@ Page({
     wx.getSetting({
       success: res => {
         let auth = res.authSetting['scope.userLocation'];
-        console.log(auth);
+        /*console.log(auth);*/
         let locationAuthType = auth ? AUTHORIZED
           : (auth === false) ? UNAUTHORIZED : UNPROMPTED;
           //三元表达式
@@ -87,7 +87,7 @@ Page({
       /*success(res) {*/
       success: res =>{
         let result = res.data.result;
-        console.log(result);
+        /*console.log(result);*/
         this.setNow(result);
         this.setHourlyWeather(result);
         this.setToday(result);
@@ -154,8 +154,8 @@ Page({
     let date = new Date()
     let mintemp = result.today.minTemp;
     let maxtemp = result.today.maxTemp;
-    console.log(maxtemp);
-    console.log(date);
+    /*console.log(maxtemp);*/
+    /*console.log(date);*/
     this.setData(
       {
         todayDate:date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate()+" 今天",
@@ -199,7 +199,7 @@ Page({
           },
           success: res => {
             let city = res.result.address_component.city;
-            console.log(city); 
+            /*console.log(city); */
             this.setData({
               city: city,
             });
