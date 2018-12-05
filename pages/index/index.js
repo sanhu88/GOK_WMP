@@ -37,6 +37,7 @@ Page({
    
     locationAuthType: UNPROMPTED,
   },
+  /**所有动态变量 */
 
   onLoad() {
     this.qqmapsdk = new QQMapWX({
@@ -64,6 +65,7 @@ Page({
       },
     })
   }, 
+  /**一开始就调用的生命周期函数 */
   /**End onLoad */
 
   onPullDownRefresh() {
@@ -71,6 +73,7 @@ Page({
       wx.stopPullDownRefresh();
     })
   },
+  /**下拉刷新所用函数 */
   /**End onPullDownRefresh */
 
   getNow(callback){
@@ -102,7 +105,8 @@ Page({
       }   /**end complete */
     })
    },
-   /**end of getNow */
+   /**获取天气的核心代码 */
+/**end of getNow */
 
    setNow(result){
      let temp = result.now.temp;
@@ -172,14 +176,15 @@ Page({
       url: '/pages/list/list?city='+this.data.city,
     });
   },
+  /**点击跳入第二页，传递city参数 */
   /**End onTapDayWeather */
 
 
   onTapLocation() {
    this.getCityAndWeather()
   },
-  
-   /**End onTapLocation */
+  /**点击定位服务 */
+  /**End onTapLocation */
   getCityAndWeather() {
     wx.getLocation({
       success: res => {
@@ -217,4 +222,5 @@ Page({
     });
     /**End wx.getLocation */
   },
+  /**返回城市和天气，在 onTapLocation和onLoad被调用*/
 });
