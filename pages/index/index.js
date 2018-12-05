@@ -167,28 +167,36 @@ Page({
       success: res => {
         this.setData({
           locationAuthType: AUTHORIZED,
-          locationTipsText: AUTHORIZED_TIPS
-        })
+          locationTipsText: AUTHORIZED_TIPS,
+        });
         this.qqmapsdk.reverseGeocoder({
           location: {
             latitude: res.latitude,
-            longitude: res.longitude
+            longitude: res.longitude,
           },
           success: res => {
-            let city = res.result.address_component.city
+            let city = res.result.address_component.city;
+            console.log(city); 
             this.setData({
               city: city,
-            })
-            this.getNow()
-          }
-        })
+            });
+            this.getNow();
+          },
+          /**End qqmapsdk.reverseGeocoder success */
+        });
+        /**End qqmapsdk.reverseGeocoder  */
       },
+      /**End  wx.getLocation success*/
+
+      
       fail: () => {
         this.setData({
           locationAuthType: UNAUTHORIZED,
-          locationTipsText: UNAUTHORIZED_TIPS
+          locationTipsText: UNAUTHORIZED_TIPS,
         })
-      }
-    })
-  }
-})
+      },
+      /** End qqmapsdk.reverseGeocoder fail  */
+    });
+    /**End wx.getLocation */
+  },
+});
