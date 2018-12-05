@@ -42,13 +42,15 @@ Page({
 
   onLoad() {
     this.qqmapsdk = new QQMapWX({
-      key: 'WTNBZ-P2EKV-KB3PP-UNL24-UBCT3-RJFDO'
+      key: 'WTNBZ-P2EKV-KB3PP-UNL24-UBCT3-RJFDO',
     })
     wx.getSetting({
       success: res => {
-        let auth = res.authSetting['scope.userLocation']
+        let auth = res.authSetting['scope.userLocation'];
+        console.log(auth);
         let locationAuthType = auth ? AUTHORIZED
-          : (auth === false) ? UNAUTHORIZED : UNPROMPTED
+          : (auth === false) ? UNAUTHORIZED : UNPROMPTED;
+          //三元表达式
         let locationTipsText = auth ? AUTHORIZED_TIPS
           : (auth === false) ? UNAUTHORIZED_TIPS : UNPROMPTED_TIPS
         this.setData({
